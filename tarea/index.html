@@ -11,11 +11,20 @@
 
 <body>
 
-    <h1 id="titulo">Registro de notas</h1>
+    <h1 id="titulo">Registro de notas de estudiantes</h1>
 
     <section>
-        <h2>Base de Datos</h2>
-        <ul id="registroNotas"></ul>
+        <form id="formulario-notas">
+            <input type="text" id="curso" placeholder="Curso">
+            <input type="text" id="nombre" placeholder="Nombre del estudiante">
+            <input type="number" id="nota" placeholder="Nota">
+            <button type="submit">Agregar</button>
+        </form>
+    </section>
+
+    <section>
+        <h2 id="subtitulo">Formulario:</h2>
+        <ul id="lista-notas"></ul>
     </section>
 
     <script src="app.js"></script>

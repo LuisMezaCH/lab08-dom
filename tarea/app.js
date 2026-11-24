@@ -1,27 +1,53 @@
 console.log("app.js cargado");
 
+const titulo = document.querySelector("#titulo");
+titulo.style.color = "red";
+
+const subtitulo = document.querySelector("#subtitulo");
+subtitulo.style.color = "blue";
+
 class RegistroNota {
-    constructor(nombre, nota) {
+    constructor(curso, nombre, nota) {
+        this.curso = curso;
         this.nombre = nombre;
-        this.nota = nota;
+        this.nota = Number(nota);
     }
- 
-    registro() {
-        return this.nombre + " - " + this.nota;
+
+    mostrarRegistro(){
+        return `${this.curso} -  ${this.nombre} - ${this.nota.toFixed(2)}`;
+    }
+
+    crearElementoHTML() {
+        const li = document.createElement("li");
+
+        li.textContent = this.mostrarRegistro() + " ";
+
+        const btnBorrar = document.createElement("button");
+        btnBorrar.textContent = "Borrar";
+
+        btnBorrar.addEventListener("click", () => {
+         li.remove();
+        });
+
+        li.appendChild(btnBorrar);
+        return li
     }
 }
 
-const estudiante = new RegistroNota("Luis Meza", 18);
-const estudiante2 = new RegistroNota("Ruben Sara", 16);
-const estudiante3 = new RegistroNota("Nicol Camarena", 19);
-const estudiante4 = new RegistroNota("Edith Haanco", 15);
-const estudiante5 = new RegistroNota("Diego Torres", 13)
+const formulario = document.getElementById("formulario-notas");
+const listaNotas = document.getElementById("lista-notas");
 
-const registroNotas = [estudiante, estudiante2, estudiante3, estudiante4, estudiante5];
-const listaRegistroNotas = document.querySelector("#registroNotas");
- 
-registroNotas.forEach((r) => {
-    const li = document.createElement("li");
-    li.textContent = r.registro();
-    listaRegistroNotas.appendChild(li)
+formulario.addEventListener("submit", (evento) => {
+    evento.preventDefault();
+
+    const curso = document.getElementById("curso").value;
+    const nombre = document.getElementById("nombre").value;
+    const nota = document.getElementById("nota").value;
+
+    const nuevoRegistro = new RegistroNota(curso, nombre, nota);
+    const elementoDOM = nuevoRegistro.crearElementoHTML();
+
+    listaNotas.appendChild(elementoDOM);
+
+    formulario.reset();
 });
